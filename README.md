@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Прогрессивное веб-приложени – Кошелёк
 
-## Getting Started
+![app icon](/docs/images/app-icon.png)
 
-First, run the development server:
+## Цель
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Создать аналог приложения Apple Wallet с расширенным функционалом в форме прогрессивного веб-приложения (PWA).
+
+## Стек
+
+TypeScript, Next js, MongoDB
+
+## Общая структура интерфейса
+
+```txt
+Список категорий
+├── Категория
+│   ├── Карточка
+│   └── Карточка
+├── Категория
+│   └── Карточка
+└── Категория
+    └── Карточка
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Планируемые возможности
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [ ] Импорт карточек из формата .pkpass и ассоциация с типом файла
+- [ ] Полноценная работа в режиме оффлайн
+- [ ] Конструктор карточек
+- [ ] Редактор карточек
+- [ ] Картинки и иконки для карточек
+- [ ] 5 типов карточек: Стандартная, Карточка магазина, Купон, Билет на мероприятие, Посадочный талон
+- [ ] Уведолмения по геолокации
+- [ ] Импорт и экспорт карточек при помощи файлов
+- [ ] Возможность поделится карточкой через системное меню в виде картинки или файла
+- [ ] Запуск привязанного к карточке приложения
+- [ ] Парсинг карточек выдачи заказов из Озона, Яндекса и прочих
+- [ ] Список покупок с интеграцией в Home Assitant
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Схема данных
 
-## Learn More
+База данных - MongoDB  
+Коллекции: `cards`, `categories`
 
-To learn more about Next.js, take a look at the following resources:
+### cards
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`cards` - хранит все карточки
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```json
+{
+    "id": 1,
+    "category_id": 1,
+    "category_name": "Магазины",
+    "name": "Карта лояльности",
+    "short_name": "Карта лояльности",
+    "background_color": "#ef121e",
+    "label_color": "#ffa2a2",
+    "text_color": "#ffffff",
+    "images": {
+        "icon": "/url/image.png",
+        "logo": "/url/image.png",
+        "strip": "/url/image.png"
+    },
+    "front_fields": [
+    {
+        "key" : "card_number",
+        "label" : "НОМЕР КАРТЫ",
+        "value" : "0000000000000"
+    }
+    ],
+    "barcode" : {
+        "text_label" : "0000000000000",
+        "value" : "0000000000000",
+        "format" : "PKBarcodeFormatCode128",
+        "value_encoding" : "iso-8859-1"
+    },
+    "app_launch_urls" : [
+        "apple": "itms://itunes.apple.com/us/app/apple-store/id0",
+    ],
+    "back_fields" : [
+        {
+            "key" : "welcome",
+            "label" : "Карта постоянного покупателя",
+            "value" : "Это ваша электронная карта лояльности"
+        },
+    ],
+    "last_updated": ""
+}
+```
 
-## Deploy on Vercel
+### categories
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`categories` - хранит список категорий для группировки на главной странице
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```json
+{
+    "id": 1,
+    "name": "Магазины",
+    "image": "/url/image.png",
+    "background_color": "#ef121e",
+    "text_color": "#ffffff",
+}
+```
