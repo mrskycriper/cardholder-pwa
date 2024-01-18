@@ -1,8 +1,5 @@
-import clientPromise from "../mongo/db";
-
-interface iCategory {
-    
-}
+import CardGrid from "@/component/card-grid/card-grid";
+import clientPromise from "@/mongo/db";
 
 async function getCardCategories() {
     const client = await clientPromise
@@ -15,12 +12,6 @@ async function getCardCategories() {
 export default async function Home() {
     const categories = await getCardCategories() as []
     return (
-        <div className="App">
-            <div className="card-grid">
-                {categories.map(category => (
-                    <div key={category.category_id}><h2>{category.name}</h2></div>
-                ))}
-            </div>
-        </div>
+        <CardGrid items={categories}></CardGrid>
     )
 }

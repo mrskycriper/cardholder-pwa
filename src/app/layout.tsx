@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={font.className}>{children}</body>
-    </html>
+      <body className={font.className + " App"}>
+          {children}
+      </body>
+    </html >
   )
 }
